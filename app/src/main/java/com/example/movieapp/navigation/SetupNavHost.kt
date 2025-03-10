@@ -9,9 +9,9 @@ import com.example.movieapp.screens.MainScreen
 import com.example.movieapp.screens.SplashScreen
 
 sealed class Screens(val route: String) {
-    object Splash: Screens(route = Constants.Screens.SPLASH_SCREEN)
-    object Main: Screens(route = Constants.Screens.MAIN_SCREEN)
-    object Detail: Screens(route = Constants.Screens.DETAILS_SCREEN)
+    data object Splash: Screens(route = Constants.Screens.SPLASH_SCREEN)
+    data object Main: Screens(route = Constants.Screens.MAIN_SCREEN)
+    data object Detail: Screens(route = Constants.Screens.DETAILS_SCREEN)
 }
 
 @Composable
@@ -27,7 +27,7 @@ fun SetupNavHost(navHostController: NavHostController) {
             MainScreen()
         }
         composable(route = Screens.Detail.route) {
-            SplashScreen(navController = navHostController)
+
         }
     }
 }

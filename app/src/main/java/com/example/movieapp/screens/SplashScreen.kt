@@ -54,8 +54,7 @@ fun Splash(alpha: Float) {
     ) {
         Icon(
             modifier = Modifier.
-            size(120.dp)
-                .alpha(alpha = alpha),
+            size(120.dp),
             imageVector = Icons.Default.PlayArrow,
             contentDescription = "",
             tint = Color.Black
@@ -63,10 +62,10 @@ fun Splash(alpha: Float) {
     }
 }
 
-//@Composable
-//@Preview(showBackground = true)
-//fun prevSplash() {
-//    MovieAppTheme {
-//        Splash()
-//    }
-//}
+@Composable
+@Preview(showBackground = true)
+fun PrevSplash() {
+    MovieAppTheme {
+        Splash(1f)
+    }
+}
