@@ -23,12 +23,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.movieapp.MainViewModel
 import com.example.movieapp.navigation.Screens
 import com.example.movieapp.ui.theme.MovieAppTheme
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(navController: NavController) {
+fun SplashScreen(navController: NavController, viewModel: MainViewModel) {
     var startAnimate by remember {
         mutableStateOf(false)
     }
@@ -40,6 +41,7 @@ fun SplashScreen(navController: NavController) {
     )
     LaunchedEffect(key1 = true) {
         startAnimate = true
+        viewModel.getAllMovies()
         delay(4000)
         navController.navigate(Screens.Main.route)
     }
@@ -54,8 +56,7 @@ fun Splash(alpha: Float) {
     ) {
         Icon(
             modifier = Modifier.
-            size(120.dp)
-                .alpha(alpha = alpha),
+            size(120.dp),
             imageVector = Icons.Default.PlayArrow,
             contentDescription = "",
             tint = Color.Black
@@ -63,10 +64,10 @@ fun Splash(alpha: Float) {
     }
 }
 
-//@Composable
-//@Preview(showBackground = true)
-//fun prevSplash() {
-//    MovieAppTheme {
-//        Splash()
-//    }
-//}
+@Composable
+@Preview(showBackground = true)
+fun PrevSplash() {
+    MovieAppTheme {
+        Splash(1f)
+    }
+}

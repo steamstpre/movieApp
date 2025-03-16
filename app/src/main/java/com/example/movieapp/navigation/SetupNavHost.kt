@@ -5,29 +5,34 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.example.movieapp.utils.Constants
 import androidx.navigation.compose.composable
+import com.example.movieapp.MainViewModel
+import com.example.movieapp.screens.DetailScreen
 import com.example.movieapp.screens.MainScreen
 import com.example.movieapp.screens.SplashScreen
 
 sealed class Screens(val route: String) {
-    object Splash: Screens(route = Constants.Screens.SPLASH_SCREEN)
-    object Main: Screens(route = Constants.Screens.MAIN_SCREEN)
-    object Detail: Screens(route = Constants.Screens.DETAILS_SCREEN)
+    data object Splash: Screens(route = Constants.Screens.SPLASH_SCREEN)
+    data object Main: Screens(route = Constants.Screens.MAIN_SCREEN)
+    data object Detail: Screens(route = Constants.Screens.DETAILS_SCREEN)
 }
 
 @Composable
-fun SetupNavHost(navHostController: NavHostController) {
+fun SetupNavHost(navHostController: NavHostController, viewModel: MainViewModel) {
     NavHost(
         navController = navHostController,
         startDestination = Screens.Splash.route,
         ){
-        composable(route = "splash_screen") {
-            SplashScreen(navController = navHostController)
+        composable(route = Screens.Splash.route) {
+            SplashScreen(navController = navHostController, viewModel = viewModel)
         }
         composable(route = Screens.Main.route) {
-            MainScreen()
+            MainScreen(navController = navHostController, viewModel = viewModel)
         }
-        composable(route = Screens.Detail.route) {
-            SplashScreen(navController = navHostController)
+        composable(route = Screens.Detail.route + "/{Id}") { navBackStackEntry ->
+                DetailScreen(
+                    viewModel = viewModel,
+                    itemId = navBackStackEntry.arguments?.getString("Id"  ) ?: "1"
+                )
         }
     }
 }
